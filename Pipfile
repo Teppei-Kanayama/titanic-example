@@ -8,14 +8,8 @@ verify_ssl = true
 [packages]
 pandas = "*"
 numpy = "*"
-scipy = "*"
 gokart = "*"
 luigi = "*"
-torch = "*"
-sklearn = "*"
-matplotlib = "*"
-lightgbm = "==2.1.2"
-jupyterlab = "*"
 
 [requires]
 python_version = "3.6"
