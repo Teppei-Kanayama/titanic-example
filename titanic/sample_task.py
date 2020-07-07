@@ -1,5 +1,4 @@
 import pandas as pd
-import gokart
 import luigi
 
 from titanic.utils.titanic_task import Titanic
@@ -16,6 +15,8 @@ class LoadData(Titanic):
 
 class SampleTask(Titanic):
     task_namespace = 'titanic'
+
+    rerun = True
 
     def output(self):
         return dict(submission=self.make_target('submission.csv'),
