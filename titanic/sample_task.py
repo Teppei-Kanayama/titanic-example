@@ -2,8 +2,10 @@ import pandas as pd
 import gokart
 import luigi
 
+from titanic.utils.titanic_task import Titanic
 
-class LoadData(gokart.TaskOnKart):
+
+class LoadData(Titanic):
     task_namespace = 'titanic'
 
     file_path: str = luigi.Parameter()
@@ -12,11 +14,12 @@ class LoadData(gokart.TaskOnKart):
         return self.make_target(self.file_path, use_unique_id=False)
 
 
-class SampleTask(gokart.TaskOnKart):
+class SampleTask(Titanic):
     task_namespace = 'titanic'
 
     def output(self):
-        return self.make_target('submission.csv')
+        return dict(submission=self.make_target('submission.csv'),
+                    submission_local=self.make_local_target('submission.csv', use_unique_id=False))
 
     def requires(self):
         return dict(sample_submission=LoadData(file_path='input/gender_submission.csv'),
@@ -28,7 +31,8 @@ class SampleTask(gokart.TaskOnKart):
         train = self.load_data_frame('train')
         test = self.load_data_frame('test')
         output = self._run(sample_submission, train, test)
-        self.dump(output)
+        self.dump(output, 'submission')
+        self.dump(output, 'submission_local')
 
     @staticmethod
     def _run(sample_submission: pd.DataFrame, train: pd.DataFrame, test: pd.DataFrame) -> pd.DataFrame:
