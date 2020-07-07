@@ -10,6 +10,7 @@ pandas = "*"
 numpy = "*"
 gokart = "*"
 luigi = "*"
+kaggle = "*"
 
 [requires]
 python_version = "3.6"
