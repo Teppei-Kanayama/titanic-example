@@ -12,7 +12,7 @@ RUN pip install --upgrade pip &&\
 
 WORKDIR /
 COPY ./conf /app/conf
-COPY ./m5_forecasting /app/m5_forecasting
+COPY ./titanic /app/titanic
 COPY ./main.py /app/main.py
 COPY ./script /app/script
 
