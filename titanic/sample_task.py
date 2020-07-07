@@ -15,6 +15,9 @@ class LoadData(gokart.TaskOnKart):
 class SampleTask(gokart.TaskOnKart):
     task_namespace = 'titanic'
 
+    def output(self):
+        return self.make_target('submission.csv')
+
     def requires(self):
         return dict(sample_submission=LoadData(file_path='input/gender_submission.csv'),
                     train=LoadData(file_path='input/train.csv'),
